@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
@@ -33,9 +34,9 @@ public class CreatorEntity {
     @Column
     private Timestamp registDate;
 
-
-
-
+    //크리에이터별 RS
+    @Column
+    private BigDecimal creatorRs;
 
 
 }

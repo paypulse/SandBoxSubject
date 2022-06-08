@@ -14,9 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
 
 
 @Service
@@ -31,6 +30,9 @@ public class RegisterService {
 
     @Autowired
     private CreatorEntityRepository creatorRepo;
+
+
+    private BigDecimal oneHundread = new BigDecimal("1.0");
 
 
     /**
@@ -80,35 +82,62 @@ public class RegisterService {
         Timestamp time = util.stringToTimestamp(request.getCreateChannelAt());
 
         try{
-            Integer chenlChk = chanelEntityRepo.countByChanelId(request.getChanelId());
-            System.out.println("check : "+chenlChk);
-            if(chenlChk <=0) {
-                //채널 insert
-                ChannelEntity chanel = new ChannelEntity();
-                chanel.setChanelId(request.getChanelId());
-                chanel.setChanelName(request.getChanelName());
-                chanel.setCreateDate(time);
-                chanelEntityRepo.save(chanel);
+            BigDecimal rsResult =util.sumRs(request.getChannelRs(), request.getSandboxRs());
+
+            if(rsResult.equals(oneHundread)){
+                //요율의 합이 100%면 등록
+                Integer chenlChk = chanelEntityRepo.countByChanelId(request.getChanelId());
+                BigDecimal chenelRs = new BigDecimal(request.getChannelRs());
+                BigDecimal sandboxRs = new BigDecimal(request.getSandboxRs());
+
+                if(chenlChk <=0) {
+
+                    //채널 insert
+                    ChannelEntity chanel = new ChannelEntity();
+                    chanel.setChanelId(request.getChanelId());
+                    chanel.setChanelName(request.getChanelName());
+                    chanel.setCreateDate(time);
+                    chanel.setChannelRs(chenelRs);
+                    chanel.setSandBoxRs(sandboxRs);
+                    chanelEntityRepo.save(chanel);
+                }
+
+                if(request.getCreators().isEmpty()){
+                    result = false;
+                }else{
+                    //creator 등록
+                    BigDecimal resultRs = new BigDecimal("0");
+
+                    for(CreatorEntity obj:request.getCreators()){
+                        resultRs = resultRs.add(obj.getCreatorRs());
+                    }
+
+                    if(resultRs.equals(oneHundread)){
+                        for(CreatorEntity obj:request.getCreators()){
+
+                            CreatorEntity creator = new CreatorEntity();
+                            creator.setChannelId(request.getChanelId());
+                            creator.setCreatorNm(obj.getCreatorNm());
+                            creator.setRegistDate(obj.getRegistDate());
+                            creator.setCreatorRs(obj.getCreatorRs());
+                            creatorRepo.save(creator);
+                        }
+                        result = true;
+
+                    }else{
+                        //요율 합이 100이 안됨
+                        result = false;
+                    }
+
+
+                }
+
             }else{
-                //채널 update
-                ChannelEntity chanel = chanelEntityRepo.findByChanelId(request.getChanelId());
-                chanel.setChanelName(request.getChanelName());
-                chanelEntityRepo.save(chanel);
+                //등록이 되면 안됨
+                result = false;
+
             }
 
-            if(request.getCreators().isEmpty()){
-                result = false;
-            }else{
-                //creator 등록
-                for(CreatorEntity obj:request.getCreators()){
-                    CreatorEntity creator = new CreatorEntity();
-                    creator.setChannelId(request.getChanelId());
-                    creator.setCreatorNm(obj.getCreatorNm());
-                    creator.setRegistDate(obj.getRegistDate());
-                    creatorRepo.save(creator);
-                }
-                result = true;
-            }
 
 
 
