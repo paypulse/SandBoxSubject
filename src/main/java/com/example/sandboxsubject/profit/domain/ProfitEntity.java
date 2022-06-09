@@ -23,7 +23,7 @@ public class ProfitEntity {
     private Integer profitId;
 
     //수익 금액
-    @Column(nullable = false)
+    @Column
     private Integer profitAmt;
 
     //크리에이터 ID

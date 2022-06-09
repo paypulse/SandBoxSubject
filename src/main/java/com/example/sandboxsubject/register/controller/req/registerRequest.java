@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ToString
-public class registerRequest {
+public class registerRequest  {
 
     //채널 ID
     private String chanelId;

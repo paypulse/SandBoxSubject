@@ -1,5 +1,6 @@
 package com.example.sandboxsubject.creator.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class CreatorEntity {
     //pk
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Integer creatorId;
 
     //크리에이터 계약 번호
@@ -28,6 +30,7 @@ public class CreatorEntity {
 
     //channel ID
     @Column(nullable = false)
+    @JsonIgnore
     private String channelId;
 
     //creator 명

@@ -1,0 +1,119 @@
+= Sandbox 과제  API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+=== 2022-06-09
+1. 특정 유투브 채널 수익 금액 데이터 등록
+2. 유투브 채널과 크리에이터 계약 정보 등록
+3. 특정 채널 수익 금액과 계약 정보에 따른 크리에이터 정산 금액 조회
+4. 특정 크리에이터 기준으로 채널별 정산 금액 조회
+5. 월별 회사 총 매츨/ 순 매출 조회
+
+== API 기본 구조
+API 기본 구조
+
+	POST /api/
+	예 : /api/inquery/income/
+	Request Content-Type : json
+
+
+=== 1. 특정 유투브 채널 수익 금액 데이터 등록
+API 기본 구조
+
+	POST /api/inquery/income/creator
+	예 : /api/inquery/income/creator
+	Request Content-Type : json
+	Request Body : {
+        "channelId" :  "300",
+        "profitCreateAt" : "2022-03-25",
+        "profitAmt" : 400000
+    }
+
+요청 필드 정보
+include::{snippets}/apidoc_특정_유튜브채널_수익금_등록/request-fields.adoc[]
+
+응답 구조
+include::{snippets}/apidoc_특정_유튜브채널_수익금_등록/response-fields.adoc[]
+
+=== 2. 유투브 채널과 크리에이터 계약 정보 등록
+API 기본 구조
+
+	POST /api/contract/register
+	예 : /api/contract/register
+	Request Content-Type : json
+	Request Body : {
+        "chanelId" :"300",
+        "chanelName" : "히밥",
+        "createChannelAt" : "2022-03-01",
+        "channelRs" : "0.7",
+        "sandboxRs" : "0.3",
+        "creators": [
+            {
+                "creatorCd" : "101",
+                "creatorNm" : "좌희재",
+                "registDate": "2022-02-01",
+                "creatorRs" : "1.0"
+            }
+        ]
+    }
+
+요청 필드 정보
+include::{snippets}/apidoc_유투브채널_크리에이터_계약_등록/request-fields.adoc[]
+
+응답 구조
+include::{snippets}/apidoc_유투브채널_크리에이터_계약_등록/response-fields.adoc[]
+
+
+=== 3. 특정 채널 수익 금액과 계약 정보에 따른 크리에이터 정산 금액 조회
+API 기본 구조
+
+	POST /api/inquery/income/creator
+	예 : /api/inquery/income/creator
+	Request Content-Type : json
+	Request Body : {
+        "channelId" : "100",
+        "startDate" : "2021-01-01",
+        "endDate"   : "2022-02-01"
+    }
+
+요청 필드 정보
+include::{snippets}/apidoc_특정_채널수익_계약정보_크리에이터정산/request-fields.adoc[]
+
+응답 구조
+include::{snippets}/apidoc_특정_채널수익_계약정보_크리에이터정산/response-fields.adoc[]
+
+=== 4. 특정 크리에이터 기준으로 채널별 정산 금액 조회
+API 기본 구조
+
+	POST /api/inquery/income/realCreator
+	예 : /api/inquery/income/realCreator
+	Request Content-Type : json
+	Request Body : {
+        "creatorCd" : "101",
+        "startDate" : "2022-01-01",
+        "endDate"   : "2022-04-01"
+    }
+
+요청 필드 정보
+include::{snippets}/apidoc_특정_크리에이터기준_정산조회/request-fields.adoc[]
+
+응답 구조
+include::{snippets}/apidoc_특정_크리에이터기준_정산조회/response-fields.adoc[]
+
+=== 5. 월별 회사 총 매츨/ 순 매출 조회
+API 기본 구조
+
+	GET /api/inquery/income/sandbox
+	예 : /api/inquery/income/sandbox?startDate=2022-01-01&endDate=2022-03-01
+	Request Content-Type : json
+
+
+응답 구조
+include::{snippets}/apidoc_월별_sandbox_총_순매출조회/response-fields.adoc[]
+
+
+
