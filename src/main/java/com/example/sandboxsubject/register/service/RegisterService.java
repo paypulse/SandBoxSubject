@@ -117,6 +117,7 @@ public class RegisterService {
 
                             CreatorEntity creator = new CreatorEntity();
                             creator.setChannelId(request.getChanelId());
+                            creator.setCreatorCd(obj.getCreatorCd());
                             creator.setCreatorNm(obj.getCreatorNm());
                             creator.setRegistDate(obj.getRegistDate());
                             creator.setCreatorRs(obj.getCreatorRs());

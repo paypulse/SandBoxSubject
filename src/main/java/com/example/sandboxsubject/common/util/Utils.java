@@ -40,4 +40,24 @@ public class Utils {
 
 
 
+    /**
+     * 수익 계산
+     * BigDecimal to int
+     * **/
+    public int profitCalculating(BigDecimal profitAmount, BigDecimal rs){
+
+
+        int result =0;
+        if(profitAmount != null && rs != null){
+            result = profitAmount.multiply(rs).intValue();
+            return result;
+        }else{
+            return 0;
+        }
+    }
+
+
+
+
+
 }

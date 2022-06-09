@@ -22,6 +22,10 @@ public class CreatorEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer creatorId;
 
+    //크리에이터 계약 번호
+    @Column(nullable = false)
+    private String creatorCd;
+
     //channel ID
     @Column(nullable = false)
     private String channelId;
@@ -37,6 +41,8 @@ public class CreatorEntity {
     //크리에이터별 RS
     @Column
     private BigDecimal creatorRs;
+
+
 
 
 }

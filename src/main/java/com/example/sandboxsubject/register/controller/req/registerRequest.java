@@ -28,7 +28,6 @@ public class registerRequest {
     //sandbox RS 요율
     private String sandboxRs;
 
-
     //크리에이터 들
     private List<CreatorEntity> creators;
 

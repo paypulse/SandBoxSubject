@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
+@Entity (name = "ProfitEntity")
 public class ProfitEntity {
 
     //pk
