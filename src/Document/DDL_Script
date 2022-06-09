@@ -1,0 +1,33 @@
+--- Channel 테이블
+CREATE TABLE public.channel_entity (
+	chanel_id varchar(255) NOT NULL,
+	chanel_name varchar(255) NOT NULL,
+	channel_rs numeric(19,2) NULL,
+	create_date timestamp NULL,
+	sand_box_rs numeric(19,2) NULL,
+	CONSTRAINT channel_entity_pkey PRIMARY KEY (chanel_id)
+);
+
+
+--- Creator 테이블
+CREATE TABLE public.creator_entity (
+	creator_id int4 NOT NULL,
+	channel_id varchar(255) NOT NULL,
+	creator_cd varchar(255) NOT NULL,
+	creator_nm varchar(255) NOT NULL,
+	creator_rs numeric(19,2) NULL,
+	regist_date timestamp NULL,
+	CONSTRAINT creator_entity_pkey PRIMARY KEY (creator_id)
+);
+
+
+--- Profit 테이블
+CREATE TABLE public.creator_entity (
+	creator_id int4 NOT NULL,
+	channel_id varchar(255) NOT NULL,
+	creator_cd varchar(255) NOT NULL,
+	creator_nm varchar(255) NOT NULL,
+	creator_rs numeric(19,2) NULL,
+	regist_date timestamp NULL,
+	CONSTRAINT creator_entity_pkey PRIMARY KEY (creator_id)
+);
